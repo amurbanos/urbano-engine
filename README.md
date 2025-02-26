@@ -38,6 +38,7 @@ O projeto é uma aplicação Laravel escalável para scraping de produtos de e-c
 ✔ Descrição
 ✔ Imagem
 
+
 ✅ A extração pode ser feita:
 ✔ Manualmente via comando
 ✔ Automaticamente via Laravel Scheduler (agendador de tarefas)
@@ -50,7 +51,9 @@ O projeto é uma aplicação Laravel escalável para scraping de produtos de e-c
 2️⃣ Processamento – Organização e Armazenamento
 
 ✅ O sistema armazena os produtos no banco de dados, verificando se há atualizações antes de salvar.
+
 ✅ Scraping processado de forma assíncrona com Laravel Queues, evitando travamento do sistema.
+
 ✅ Otimização com Redis, para evitar recarregar os mesmos dados.
 
 📌 Ferramentas usadas:
@@ -63,6 +66,7 @@ O projeto é uma aplicação Laravel escalável para scraping de produtos de e-c
 3️⃣ Saída (Output) – Exibição e Monitoramento
 
 ✅ Página pública onde os produtos são exibidos com filtros e paginação.
+
 ✅ Painel Administrativo para monitorar logs, tarefas e falhas.
 
 📌 Ferramentas usadas:
@@ -96,18 +100,26 @@ E a Estratégia que estamos utilizandoo:
 2️⃣ Nível Pleno (Melhorando Estrutura e Funcionalidades)
 
 ✅ Expandir o scraper para capturar descrição e imagem dos produtos.
+
 ✅ Refatorar o código para padrão MVC (Controllers, Models e Views).
+
 ✅ Implementar filtros e paginação na exibição dos produtos.
+
 ✅ Adicionar tratamento de erros e logs básicos para monitoramento.
 
 📌 Objetivo: Estruturar melhor o código e melhorar a experiência do usuário.
 3️⃣ Nível Sênior (Escalabilidade e Otimização)
 
 ✅ Criar agendamento automático via Laravel Scheduler para atualização dos produtos.
+
 ✅ Implementar queues (filas) para processamento assíncrono, evitando sobrecarga no servidor.
+
 ✅ Usar Redis para caching, melhorando a velocidade de carregamento.
+
 ✅ Criar um Painel Administrativo (Filament) para gerenciar logs e monitoramento.
+
 ✅ Integrar Laravel Telescope para depuração e monitoramento avançado.
+
 
 📌 Objetivo: Tornar a aplicação escalável, rápida e otimizada para grandes volumes de dados.
 
