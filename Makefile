@@ -23,8 +23,6 @@ install:
 	docker exec $(CONTAINER) composer install
 	docker exec $(CONTAINER) php artisan key:generate
 	docker exec $(CONTAINER) php artisan migrate --seed
-	docker exec $(CONTAINER) npm install
-	docker exec $(CONTAINER) npm run prod
 
 rebuild:
 	make down
