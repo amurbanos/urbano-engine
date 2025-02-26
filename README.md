@@ -87,7 +87,9 @@ E a Estratégia que estamos utilizandoo:
 1️⃣ Nível Júnior (MVP - Mínimo Viável)
 
 ✅ Criar o scraper básico para coletar nome e preço dos produtos.
+
 ✅ Salvar os dados no banco de dados.
+
 ✅ Criar uma página simples para exibir os produtos.
 
 📌 Objetivo: Validar que o scraping funciona e que os dados podem ser armazenados e exibidos.
