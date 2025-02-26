@@ -1,0 +1,100 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ecommerce_scraper_app
+    container_name: ecommerce_scraper
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+    depends_on:
+      - db
+      - redis
+    networks:
+      - laravel_network
+    env_file:
+      - .env
+
+  webserver:
+    image: nginx:alpine
+    container_name: laravel_nginx
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    volumes:
+      - ./:/var/www
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
+    networks:
+      - laravel_network
+
+  db:
+    image: postgres:15
+    container_name: ecommerce_scraper_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - laravel_network
+
+  redis:
+    image: redis:alpine
+    container_name: ecommerce_scraper_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    networks:
+      - laravel_network
+
+  queue:
+    image: ecommerce_scraper_app
+    container_name: ecommerce_scraper_queue
+    command: php artisan queue:work --queue=default,scraping,notifications --tries=3 --timeout=90
+    volumes:
+      - ./:/var/www
+    depends_on:
+      - app
+      - redis
+    networks:
+      - laravel_network
+    env_file:
+      - .env
+
+  scheduler:
+    image: ecommerce_scraper_app
+    container_name: ecommerce_scraper_scheduler
+    command: php artisan schedule:work
+    volumes:
+      - ./:/var/www
+    depends_on:
+      - app
+    networks:
+      - laravel_network
+    env_file:
+      - .env
+
+  mailhog:
+    image: mailhog/mailhog
+    container_name: ecommerce_scraper_mailhog
+    ports:
+      - "8025:8025" # Interface web do MailHog
+      - "1025:1025" # Porta SMTP para envio
+    networks:
+      - laravel_network
+
+volumes:
+  postgres_data:
+
+networks:
+  laravel_network:
